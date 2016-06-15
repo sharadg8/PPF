@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:label="Add Account">
         </activity>
     </application>
 
