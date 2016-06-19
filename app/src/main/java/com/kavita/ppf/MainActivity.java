@@ -28,18 +28,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(recyclerAdapter);
     }
 
-    private List<String> createItemList() {
-        List<String> rowListItem = new ArrayList<String>();
-        rowListItem.add("Row 1");
-        rowListItem.add("Row 2");
-        rowListItem.add("Row 3");
-        rowListItem.add("Row 4");
-        rowListItem.add("Row 5");
-        rowListItem.add("Row 6");
-        rowListItem.add("Row 7");
-        rowListItem.add("Row 8");
-        rowListItem.add("Row 9");
-        rowListItem.add("Row 10");
+    private List<YearItem> createItemList() {
+        List<YearItem> rowListItem = new ArrayList<>();
+        rowListItem.add(new YearItem(2016, 150000, 30000, 500000));
+        rowListItem.add(new YearItem(2015, 100000, 23000, 500000));
+        rowListItem.add(new YearItem(2014, 50000, 10000, 500000));
+        rowListItem.add(new YearItem(2013, 70000, 10000, 500000));
+        rowListItem.add(new YearItem(2012, 120000, 3000, 500000));
         return rowListItem;
     }
 }

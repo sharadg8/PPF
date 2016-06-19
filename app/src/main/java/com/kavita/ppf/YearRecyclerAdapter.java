@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -14,9 +15,9 @@ import java.util.List;
  */
 
 public class YearRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<String> itemList;
+    private List<YearItem> itemList;
 
-    public YearRecyclerAdapter(List<String> itemList) {
+    public YearRecyclerAdapter(List<YearItem> itemList) {
         this.itemList = itemList;
     }
 
@@ -30,8 +31,14 @@ public class YearRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+        DecimalFormat df = new DecimalFormat("##,##,##,###");
         YearViewHolder holder = (YearViewHolder) viewHolder;
-        holder.title.setText(itemList.get(position));
+        holder.title.setText(""+itemList.get(position).getYear());
+        holder.invest.setText(df.format(itemList.get(position).getInvest()));
+        holder.interest.setText(df.format(itemList.get(position).getInterest()));
+        holder.balance.setText(df.format(itemList.get(position).getBalance()));
+        float values[] = { itemList.get(position).getInvest(), itemList.get(position).getInterest() };
+        holder.chart.setValues(values);
     }
 
     @Override
@@ -41,10 +48,18 @@ public class YearRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private class YearViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
+        public TextView invest;
+        public TextView interest;
+        public TextView balance;
+        public PieChartView chart;
 
         public YearViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.year_title);
+            invest = (TextView) itemView.findViewById(R.id.year_invest);
+            interest = (TextView) itemView.findViewById(R.id.year_interest);
+            balance = (TextView) itemView.findViewById(R.id.year_balance);
+            chart = (PieChartView) itemView.findViewById(R.id.year_chart);
         }
     }
 }
