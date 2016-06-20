@@ -31,12 +31,13 @@ public class YearRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        DecimalFormat df = new DecimalFormat("##,##,##,###");
+        DecimalFormat df = new DecimalFormat("-##");
+        DecimalFormat nf = new DecimalFormat("##,##,##,###");
         YearViewHolder holder = (YearViewHolder) viewHolder;
-        holder.title.setText(""+itemList.get(position).getYear());
-        holder.invest.setText(df.format(itemList.get(position).getInvest()));
-        holder.interest.setText(df.format(itemList.get(position).getInterest()));
-        holder.balance.setText(df.format(itemList.get(position).getBalance()));
+        holder.title.setText(""+itemList.get(position).getYear()+String.format("-%02d", (itemList.get(position).getYear()+1)%100));
+        holder.invest.setText(nf.format(itemList.get(position).getInvest()));
+        holder.interest.setText(nf.format(itemList.get(position).getInterest()));
+        holder.balance.setText(nf.format(itemList.get(position).getBalance()));
         float values[] = { itemList.get(position).getInvest(), itemList.get(position).getInterest() };
         holder.chart.setValues(values);
     }

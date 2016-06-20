@@ -11,23 +11,39 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
-        <TextView
-            android:id="@+id/year_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="2016"
-            android:textSize="20sp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/year_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2016"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/year_balance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="viewEnd"
+                android:textSize="20sp"
+                android:text="7,50,000" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:orientation="horizontal">
             <com.kavita.ppf.PieChartView
                 android:id="@+id/year_chart"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_margin="16dp"/>
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -59,19 +75,6 @@
                     android:textAlignment="viewEnd"
                     android:textSize="24sp"
                     android:text="25,000" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="viewEnd"
-                    android:textSize="16sp"
-                    android:text="Balance" />
-                <TextView
-                    android:id="@+id/year_balance"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="viewEnd"
-                    android:textSize="24sp"
-                    android:text="7,50,000" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
