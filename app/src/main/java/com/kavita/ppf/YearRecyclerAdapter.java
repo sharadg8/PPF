@@ -31,15 +31,13 @@ public class YearRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        DecimalFormat df = new DecimalFormat("-##");
         DecimalFormat nf = new DecimalFormat("##,##,##,###");
         YearViewHolder holder = (YearViewHolder) viewHolder;
         holder.title.setText(""+itemList.get(position).getYear()+String.format("-%02d", (itemList.get(position).getYear()+1)%100));
-        holder.invest.setText(nf.format(itemList.get(position).getInvest()));
-        holder.interest.setText(nf.format(itemList.get(position).getInterest()));
         holder.balance.setText(nf.format(itemList.get(position).getBalance()));
         float values[] = { itemList.get(position).getInvest(), itemList.get(position).getInterest() };
-        holder.chart.setValues(values);
+        String names[] = { "Invest", "Interest" };
+        holder.chart.setValues(values, names);
     }
 
     @Override
@@ -49,16 +47,12 @@ public class YearRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private class YearViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
-        public TextView invest;
-        public TextView interest;
         public TextView balance;
         public PieChartView chart;
 
         public YearViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.year_title);
-            invest = (TextView) itemView.findViewById(R.id.year_invest);
-            interest = (TextView) itemView.findViewById(R.id.year_interest);
             balance = (TextView) itemView.findViewById(R.id.year_balance);
             chart = (PieChartView) itemView.findViewById(R.id.year_chart);
         }

@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,12 @@ import java.util.List;
 
 public class PieChartView extends View {
     private Paint paint;
-    private Paint labelPaint;
+    private Paint labelLinePaint;
+    private Paint labelNamePaint;
+    private Paint labelValuePaint;
     private RectF rectPie;
     private final int strokeSize = 40;
+    private final int textOffset = 5;
     private List<PieSector> sectors;
 
     public PieChartView(Context context) {
@@ -39,12 +43,18 @@ public class PieChartView extends View {
         paint.setStrokeWidth(strokeSize);
         paint.setStyle(Paint.Style.STROKE);
 
-        labelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        labelPaint.setStrokeWidth(4);
-        labelPaint.setStyle(Paint.Style.STROKE);
+        labelLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        labelLinePaint.setStrokeWidth(4);
+        labelLinePaint.setStyle(Paint.Style.STROKE);
+
+        labelValuePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        labelValuePaint.setTextSize(40f);
+
+        labelNamePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        labelNamePaint.setTextSize(30f);
     }
 
-    public void setValues(float[] values) {
+    public void setValues(float[] values, String[] names) {
         float total = 0;
         for (int i = 0; i < values.length; i++) {
             total += values[i];
@@ -52,12 +62,13 @@ public class PieChartView extends View {
 
         sectors = new ArrayList<>();
         int startColor = ContextCompat.getColor(getContext(), R.color.primary);
-        int endColor = Color.WHITE;
+        int endColor = Color.BLACK;
         float startAngle = 0;
+        DecimalFormat nf = new DecimalFormat("##,##,##,###");
         for (int i = 0; i < values.length; i++) {
             float sweepAngle = 360 * (values[i] / total);
             int color = (Integer) new ArgbEvaluator().evaluate(((float)i/values.length), startColor, endColor);
-            sectors.add(new PieSector(startAngle, sweepAngle, color));
+            sectors.add(new PieSector(startAngle, sweepAngle, color, names[i], nf.format(values[i])));
             startAngle += sweepAngle;
         }
 
@@ -71,17 +82,29 @@ public class PieChartView extends View {
         for (int i = 0; i < sectors.size(); i++) {
             PieSector sector = sectors.get(i);
             paint.setColor(sector.color);
-            canvas.drawArc(rectPie, sector.startAngle, sector.sweepAngle, false, paint);
+            labelLinePaint.setColor(sector.color);
+            labelValuePaint.setColor(sector.color);
+            labelNamePaint.setColor(sector.color);
 
-            labelPaint.setColor(sector.color);
+            canvas.drawArc(rectPie, sector.startAngle, sector.sweepAngle+1, false, paint);
+
             float endX = (sector.lineStart.x > rectPie.centerX()) ? getRight() : getLeft();
-            canvas.drawLine(sector.lineStart.x, sector.lineStart.y, endX, sector.lineStart.y, labelPaint);
+            canvas.drawLine(sector.lineStart.x, sector.lineStart.y, endX, sector.lineStart.y, labelLinePaint);
+
+            float startX = (sector.lineStart.x > rectPie.centerX()) ?
+                    (getRight() - labelValuePaint.measureText(sector.value) - textOffset) : textOffset;
+            canvas.drawText(sector.value, startX, sector.lineStart.y - 15, labelValuePaint);
+
+            startX = (sector.lineStart.x > rectPie.centerX()) ?
+                    (getRight() - labelNamePaint.measureText(sector.name) - textOffset) : textOffset;
+            canvas.drawText(sector.name, startX, sector.lineStart.y + 30, labelNamePaint);
         }
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         int radius = (Math.min(w, h) - strokeSize) / 2;
+        radius -= 30;
         rectPie = new RectF((w/2) - radius, (h/2) - radius, (w/2) + radius, (h/2) + radius);
 
         for (int i = 0; i < sectors.size(); i++) {
@@ -94,11 +117,15 @@ public class PieChartView extends View {
         public float  startAngle;
         public int    color;
         public PointF lineStart;
+        public String name;
+        public String value;
 
-        public PieSector(float startAngle, float sweepAngle, int color) {
+        public PieSector(float startAngle, float sweepAngle, int color, String name, String value) {
             this.startAngle = startAngle;
             this.sweepAngle = sweepAngle;
             this.color = color;
+            this.name = name;
+            this.value = value;
         }
 
         public void compute(){

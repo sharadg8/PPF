@@ -16,16 +16,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        /*Intent i = new Intent(getBaseContext(), AddActivity.class);
-        i.putExtra("Id", 0);
-        startActivity(i);*/
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         YearRecyclerAdapter recyclerAdapter = new YearRecyclerAdapter(createItemList());
         recyclerView.setAdapter(recyclerAdapter);
+
+        final LineChartView lineChartView = (LineChartView) findViewById(R.id.lineChart);
+        float values[] = { 100, 150, 160, 180, 230, 300, 250, 350, 400 };
+        lineChartView.setValues(values, true);
     }
 
     private List<YearItem> createItemList() {
