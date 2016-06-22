@@ -15,10 +15,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:label="Add Account">
-        </activity>
+        <activity
+            android:name=".AddActivity"
+            android:label="Add Account"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".YearlyLimitActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="Yearly Limit"></activity>
     </application>
 
 </manifest>

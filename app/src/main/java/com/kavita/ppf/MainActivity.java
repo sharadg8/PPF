@@ -1,10 +1,13 @@
 package com.kavita.ppf;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +27,37 @@ public class MainActivity extends AppCompatActivity {
         YearRecyclerAdapter recyclerAdapter = new YearRecyclerAdapter(createItemList());
         recyclerView.setAdapter(recyclerAdapter);
 
-        final LineChartView lineChartView = (LineChartView) findViewById(R.id.lineChart);
+        LineChartView lineChartView = (LineChartView) findViewById(R.id.lineChart);
         float values[] = { 100, 150, 160, 180, 230, 300, 250, 350, 400 };
-        lineChartView.setValues(values, true);
+        lineChartView.setValues(values);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch(id) {
+            case R.id.menu_item_limit:
+                Intent intent = new Intent(MainActivity.this, YearlyLimitActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.menu_item_rate:
+                return true;
+            default:
+                // Not ours
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private List<YearItem> createItemList() {
