@@ -9,6 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.kavita.ppf.interest_rate.InterestRateActivity;
+import com.kavita.ppf.widget.LineChartView;
+import com.kavita.ppf.yearly_limit.YearlyLimitActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,11 +52,17 @@ public class MainActivity extends AppCompatActivity {
 
         switch(id) {
             case R.id.menu_item_limit:
+            {
                 Intent intent = new Intent(MainActivity.this, YearlyLimitActivity.class);
                 startActivity(intent);
                 return true;
+            }
             case R.id.menu_item_rate:
+            {
+                Intent intent = new Intent(MainActivity.this, InterestRateActivity.class);
+                startActivity(intent);
                 return true;
+            }
             default:
                 // Not ours
         }

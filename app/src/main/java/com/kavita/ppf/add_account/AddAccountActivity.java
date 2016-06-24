@@ -1,4 +1,4 @@
-package com.kavita.ppf;
+package com.kavita.ppf.add_account;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -8,10 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 
+import com.kavita.ppf.R;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class AddActivity extends AppCompatActivity {
+public class AddAccountActivity extends AppCompatActivity {
     private int mYear;
     private int mMonth;
     private int mDay;
@@ -19,7 +21,7 @@ public class AddActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.activity_add_account);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -33,7 +35,7 @@ public class AddActivity extends AppCompatActivity {
         buttonCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePicker = new DatePickerDialog(AddActivity.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePicker = new DatePickerDialog(AddAccountActivity.this, new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker datepicker, int year, int month, int day) {
                         Calendar cal = Calendar.getInstance();
                         cal.set(year, month, day);

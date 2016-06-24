@@ -1,4 +1,4 @@
-package com.kavita.ppf;
+package com.kavita.ppf.database;
 
 import android.content.ContentValues;
 import android.content.Context;

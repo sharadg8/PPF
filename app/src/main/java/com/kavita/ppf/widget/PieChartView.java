@@ -1,4 +1,4 @@
-package com.kavita.ppf;
+package com.kavita.ppf.widget;
 
 import android.animation.ArgbEvaluator;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.kavita.ppf.R;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

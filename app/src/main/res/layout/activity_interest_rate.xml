@@ -5,8 +5,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kavita.ppf.MainActivity">
-
+    tools:context="com.kavita.ppf.yearly_limit.YearlyLimitActivity">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -25,8 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_collapseMode="parallax"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:padding="16dp"/>
+                android:padding="16dp"
+                android:layout_marginTop="?attr/actionBarSize"/>
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -43,12 +42,6 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_black_24dp"
-        android:tint="@android:color/white"
-        android:layout_gravity="bottom|right|end"/>
-
 </android.support.design.widget.CoordinatorLayout>
+
+

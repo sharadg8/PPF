@@ -16,12 +16,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddActivity"
+            android:name=".add_account.AddAccountActivity"
             android:label="Add Account"
-            android:windowSoftInputMode="adjustResize"></activity>
-        <activity android:name=".YearlyLimitActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="Yearly Limit"></activity>
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".yearly_limit.YearlyLimitActivity"
+            android:label="Yearly Limit"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".interest_rate.InterestRateActivity"
+            android:label="Rate Of Interest"
+            android:parentActivityName=".MainActivity"/>
+
     </application>
 
 </manifest>

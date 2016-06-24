@@ -1,4 +1,4 @@
-package com.kavita.ppf;
+package com.kavita.ppf.yearly_limit;
 
 import java.text.DecimalFormat;
 

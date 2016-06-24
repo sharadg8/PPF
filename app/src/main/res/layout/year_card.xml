@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:orientation="horizontal">
-            <com.kavita.ppf.PieChartView
+            <com.kavita.ppf.widget.PieChartView
                 android:id="@+id/year_chart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

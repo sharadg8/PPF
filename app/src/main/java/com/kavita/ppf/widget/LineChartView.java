@@ -1,4 +1,4 @@
-package com.kavita.ppf;
+package com.kavita.ppf.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,6 +7,8 @@ import android.graphics.Path;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.kavita.ppf.R;
 
 /**
  * Created by Sharad on 21-Jun-16.

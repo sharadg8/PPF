@@ -1,10 +1,13 @@
-package com.kavita.ppf;
+package com.kavita.ppf.yearly_limit;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+
+import com.kavita.ppf.widget.LineChartView;
+import com.kavita.ppf.R;
 
 import java.util.ArrayList;
 import java.util.List;
