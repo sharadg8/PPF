@@ -1,13 +1,17 @@
 package com.kavita.ppf;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.kavita.ppf.interest_rate.InterestRateActivity;
 import com.kavita.ppf.widget.LineChartView;
@@ -16,7 +20,8 @@ import com.kavita.ppf.yearly_limit.YearlyLimitActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        AddTransactionFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,16 @@ public class MainActivity extends AppCompatActivity {
         LineChartView lineChartView = (LineChartView) findViewById(R.id.lineChart);
         float values[] = { 100, 150, 160, 180, 230, 300, 250, 350, 400 };
         lineChartView.setValues(values);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add_transaction);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                AddTransactionFragment fragment = AddTransactionFragment.newInstance("", "");
+                fragment.show(fm, "AddTransaction");
+            }
+        });
     }
 
     @Override
@@ -78,5 +93,10 @@ public class MainActivity extends AppCompatActivity {
         rowListItem.add(new YearItem(2013, 70000, 10000, 500000));
         rowListItem.add(new YearItem(2012, 120000, 3000, 500000));
         return rowListItem;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

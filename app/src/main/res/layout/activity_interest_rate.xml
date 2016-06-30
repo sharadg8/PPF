@@ -19,13 +19,6 @@
             app:expandedTitleMarginEnd="64dp"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-            <com.kavita.ppf.widget.LineChartView
-                android:id="@+id/lineChart"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_collapseMode="parallax"
-                android:padding="16dp"
-                android:layout_marginTop="?attr/actionBarSize"/>
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
