@@ -15,6 +15,8 @@ import android.view.View;
 
 import com.kavita.ppf.interest_rate.InterestRateActivity;
 import com.kavita.ppf.widget.LineChartView;
+import com.kavita.ppf.widget.RecyclerItemClickListener;
+import com.kavita.ppf.year_details.YearDetailsActivity;
 import com.kavita.ppf.yearly_limit.YearlyLimitActivity;
 
 import java.util.ArrayList;
@@ -35,6 +37,16 @@ public class MainActivity extends AppCompatActivity implements
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         YearRecyclerAdapter recyclerAdapter = new YearRecyclerAdapter(createItemList());
         recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.addOnItemTouchListener(
+            new RecyclerItemClickListener(MainActivity.this, new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    Intent intent = new Intent(MainActivity.this, YearDetailsActivity.class);
+                    intent.putExtra("key", 1); //Optional parameters
+                    startActivity(intent);
+                }
+            })
+        );
 
         LineChartView lineChartView = (LineChartView) findViewById(R.id.lineChart);
         float values[] = { 100, 150, 160, 180, 230, 300, 250, 350, 400 };
