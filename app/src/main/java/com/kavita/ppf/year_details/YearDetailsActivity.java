@@ -24,9 +24,18 @@ public class YearDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         List<YearDetailsItem> list = new ArrayList<>();
+        list.add(new YearDetailsItem(Calendar.getInstance(),0,0,0,0)); //dummy
         list.add(new YearDetailsItem(Calendar.getInstance(),200000.0f,100000.0f,8.0f,1000.0f));
-        list.add(new YearDetailsItem(Calendar.getInstance(),300000.0f,200000.0f,8.0f,3000.0f));
-        list.add(new YearDetailsItem(Calendar.getInstance(),300000.0f,300000.0f,8.0f,4000.0f));
+        list.add(new YearDetailsItem(Calendar.getInstance(),0,200000.0f,8.0f,3000.0f));
+        list.add(new YearDetailsItem(Calendar.getInstance(),0,300000.0f,8.0f,4000.0f));
+        list.add(new YearDetailsItem(Calendar.getInstance(),200000.0f,400000.0f,8.0f,5000.0f));
+        list.add(new YearDetailsItem(Calendar.getInstance(),200000.0f,100000.0f,8.0f,1000.0f));
+        list.add(new YearDetailsItem(Calendar.getInstance(),0,200000.0f,8.0f,3000.0f));
+        list.add(new YearDetailsItem(Calendar.getInstance(),0,300000.0f,8.0f,4000.0f));
+        list.add(new YearDetailsItem(Calendar.getInstance(),200000.0f,400000.0f,8.0f,5000.0f));
+        list.add(new YearDetailsItem(Calendar.getInstance(),200000.0f,100000.0f,8.0f,1000.0f));
+        list.add(new YearDetailsItem(Calendar.getInstance(),0,200000.0f,8.0f,3000.0f));
+        list.add(new YearDetailsItem(Calendar.getInstance(),0,300000.0f,8.0f,4000.0f));
         list.add(new YearDetailsItem(Calendar.getInstance(),200000.0f,400000.0f,8.0f,5000.0f));
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView1);
