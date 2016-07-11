@@ -1,8 +1,6 @@
 package com.kavita.ppf.database;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -37,31 +35,32 @@ public class DBAdapter {
             + KEY_ACCOUNT_START_DATE     + " integer not null"
             + ");";
 
-    private final Context context;
+    private final Context mContext;
 
-    private DatabaseHelper mDBHelper;
-    private SQLiteDatabase mDB;
+    private DatabaseHelper mDbHelper;
 
     public DBAdapter(Context ctx) {
-        this.context = ctx;
-        mDBHelper = new DatabaseHelper(context);
+        this.mContext = ctx.getApplicationContext();
     }
 
     // Open the database connection.
-    public DBAdapter open() {
-        mDB = mDBHelper.getWritableDatabase();
+    protected SQLiteDatabase openDb() {
+        if (mDbHelper == null) {
+            mDbHelper = new DatabaseHelper(mContext);
+        }
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         // Enable foreign key constraints
-        if (!mDB.isReadOnly()) {
-            mDB.execSQL("PRAGMA foreign_keys = ON;");
+        if (!db.isReadOnly()) {
+            db.execSQL("PRAGMA foreign_keys = ON;");
         }
 
-        return this;
+        return db;
     }
 
     // Close the database connection.
-    public void close() {
-        mDBHelper.close();
+    public void closeDb() {
+        mDbHelper.close();
     }
 
     /**
@@ -89,58 +88,5 @@ public class DBAdapter {
             // Recreate new database:
             onCreate(_db);
         }
-    }
-
-    /*
-       ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-       ++++++++++++++++++ ACCOUNT RECORD METHODS ++++++++++++++++++++
-       ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    */
-    public long insertAccount(Account account) {
-        // Create row's data:
-        ContentValues content = new ContentValues();
-        content.put(KEY_ACCOUNT_BANK_NAME      , account.getBankName());
-        content.put(KEY_ACCOUNT_ACCOUNT_NUMBER , account.getAccountNumber());
-        content.put(KEY_ACCOUNT_BRANCH_NAME    , account.getBranchName());
-        content.put(KEY_ACCOUNT_START_DATE     , account.getStartDateMsec());
-
-        // Insert it into the database.
-        return mDB.insert(DATABASE_TABLE_ACCOUNT, null, content);
-    }
-
-    public boolean updateAccount(Account account) {
-        String where = KEY_ACCOUNT_ROWID + "=" + account.getId();
-
-        // Create row's data:
-        ContentValues content = new ContentValues();
-        content.put(KEY_ACCOUNT_BANK_NAME      , account.getBankName());
-        content.put(KEY_ACCOUNT_ACCOUNT_NUMBER , account.getAccountNumber());
-        content.put(KEY_ACCOUNT_BRANCH_NAME    , account.getBranchName());
-        content.put(KEY_ACCOUNT_START_DATE     , account.getStartDateMsec());
-
-        // Insert it into the database.
-        return (mDB.update(DATABASE_TABLE_ACCOUNT, content, where, null) != 0);
-    }
-
-    public boolean deleteAccount(long rowId) {
-        String where = KEY_ACCOUNT_ROWID + "=" + rowId;
-        return mDB.delete(DATABASE_TABLE_ACCOUNT, where, null) != 0;
-    }
-
-    public Account getAccount(long rowId) {
-        Account account = null;
-        String where = KEY_ACCOUNT_ROWID + "=" + rowId;
-        Cursor c = 	mDB.query(true, DATABASE_TABLE_ACCOUNT, ALL_KEYS_ACCOUNT,
-                where, null, null, null, null, null);
-        if(c.moveToFirst()) {
-            long id = c.getLong(c.getColumnIndex(KEY_ACCOUNT_ROWID));
-            String bank = c.getString(c.getColumnIndex(KEY_ACCOUNT_BANK_NAME));
-            String accNum = c.getString(c.getColumnIndex(KEY_ACCOUNT_ACCOUNT_NUMBER));
-            String branch = c.getString(c.getColumnIndex(KEY_ACCOUNT_BRANCH_NAME));
-            long date = c.getLong(c.getColumnIndex(KEY_ACCOUNT_START_DATE));
-
-            account = new Account(id, bank, accNum, branch, date);
-        }
-        return account;
     }
 }

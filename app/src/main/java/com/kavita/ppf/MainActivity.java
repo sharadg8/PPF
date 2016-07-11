@@ -13,6 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.kavita.ppf.add_account.Account;
+import com.kavita.ppf.add_account.AddAccountActivity;
+import com.kavita.ppf.database.AccountDataSource;
 import com.kavita.ppf.interest_rate.InterestRateActivity;
 import com.kavita.ppf.widget.LineChartView;
 import com.kavita.ppf.widget.RecyclerItemClickListener;
@@ -20,15 +23,31 @@ import com.kavita.ppf.year_details.YearDetailsActivity;
 import com.kavita.ppf.yearly_limit.YearlyLimitActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements
         AddTransactionFragment.OnFragmentInteractionListener {
+    ArrayList<Account> mAccounts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAccounts = new ArrayList<>();
+
+        /*
+         * Check if the account is already created,
+         * Otherwise direct to add account activity
+         */
+        if(!isAccountCreated()) {
+            /* Switch to add account activity */
+            Intent intent = new Intent(MainActivity.this, AddAccountActivity.class);
+            intent.putExtra("key", 0); //Optional parameters
+            startActivity(intent);
+            finish();
+        }
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,6 +80,12 @@ public class MainActivity extends AppCompatActivity implements
                 fragment.show(fm, "AddTransaction");
             }
         });
+    }
+
+    private boolean isAccountCreated() {
+        AccountDataSource ds = new AccountDataSource(this);
+        ds.getAccounts(mAccounts);
+        return (mAccounts.size() > 0);
     }
 
     @Override
@@ -99,11 +124,13 @@ public class MainActivity extends AppCompatActivity implements
 
     private List<YearItem> createItemList() {
         List<YearItem> rowListItem = new ArrayList<>();
-        rowListItem.add(new YearItem(2016, 50000.1f, 50000, 500000));
-        rowListItem.add(new YearItem(2015, 40000, 60000, 500000));
-        rowListItem.add(new YearItem(2014, 60000, 40000, 500000));
-        rowListItem.add(new YearItem(2013, 70000, 10000, 500000));
-        rowListItem.add(new YearItem(2012, 120000, 3000, 500000));
+        if(mAccounts.size() > 0) {
+            Calendar startDate = mAccounts.get(0).getStartDate();
+            Calendar now = Calendar.getInstance();
+            for(int year = startDate.get(Calendar.YEAR); year <= now.get(Calendar.YEAR); year++) {
+                rowListItem.add(new YearItem(year, 50000.1f, 50000, 500000));
+            }
+        }
         return rowListItem;
     }
 
