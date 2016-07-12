@@ -12,7 +12,11 @@ import android.util.Log;
 public class DBAdapter {
     private static final String TAG = "DBAdapter";
     public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "ppf";
 
+    /*
+     * Account data table
+     */
     public static final String KEY_ACCOUNT_ROWID            = "id";
     public static final String KEY_ACCOUNT_BANK_NAME        = "bank_name";
     public static final String KEY_ACCOUNT_ACCOUNT_NUMBER   = "account_number";
@@ -23,7 +27,6 @@ public class DBAdapter {
             KEY_ACCOUNT_BANK_NAME, KEY_ACCOUNT_ACCOUNT_NUMBER,
             KEY_ACCOUNT_BRANCH_NAME, KEY_ACCOUNT_START_DATE };
 
-    public static final String DATABASE_NAME = "ppf";
     public static final String DATABASE_TABLE_ACCOUNT = "account_table";
 
     private static final String DATABASE_CREATE_SQL_ACCOUNT = "create table " + DATABASE_TABLE_ACCOUNT
@@ -33,6 +36,25 @@ public class DBAdapter {
             + KEY_ACCOUNT_ACCOUNT_NUMBER + " text not null, "
             + KEY_ACCOUNT_BRANCH_NAME    + " text not null, "
             + KEY_ACCOUNT_START_DATE     + " integer not null"
+            + ");";
+
+    /*
+     * Interest rate data table
+     */
+    public static final String KEY_RATE_ROWID            = "id";
+    public static final String KEY_RATE_INTEREST_RATE    = "interest_rate";
+    public static final String KEY_RATE_DATE             = "date";
+
+    public static final String[] ALL_KEYS_RATE = new String[] {KEY_RATE_ROWID,
+            KEY_RATE_INTEREST_RATE, KEY_RATE_DATE};
+
+    public static final String DATABASE_TABLE_RATE = "rate_table";
+
+    private static final String DATABASE_CREATE_SQL_RATE = "create table " + DATABASE_TABLE_RATE
+            + " ("
+            + KEY_RATE_ROWID         + "integer primary key autoincrement,"
+            + KEY_RATE_INTEREST_RATE + "float not null,"
+            + KEY_RATE_DATE          + "integer not null"
             + ");";
 
     private final Context mContext;
@@ -75,6 +97,7 @@ public class DBAdapter {
         @Override
         public void onCreate(SQLiteDatabase _db) {
             _db.execSQL(DATABASE_CREATE_SQL_ACCOUNT);
+            _db.execSQL(DATABASE_CREATE_SQL_RATE);
         }
 
         @Override
@@ -84,6 +107,7 @@ public class DBAdapter {
 
             // Destroy old database:
             _db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_ACCOUNT);
+            _db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_RATE);
 
             // Recreate new database:
             onCreate(_db);

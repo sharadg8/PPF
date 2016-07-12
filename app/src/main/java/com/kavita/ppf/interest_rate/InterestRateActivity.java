@@ -24,10 +24,10 @@ public class InterestRateActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         List<InterestRateItem> list = new ArrayList<>();
-        list.add(new InterestRateItem(Calendar.getInstance(), 8.5f));
-        list.add(new InterestRateItem(Calendar.getInstance(), 8.5f));
-        list.add(new InterestRateItem(Calendar.getInstance(), 8.0f));
-        list.add(new InterestRateItem(Calendar.getInstance(), 8.0f));
+        list.add(new InterestRateItem(1, Calendar.getInstance(), 8.5f));
+        list.add(new InterestRateItem(2, Calendar.getInstance(), 8.5f));
+        list.add(new InterestRateItem(3, Calendar.getInstance(), 8.0f));
+        list.add(new InterestRateItem(4, Calendar.getInstance(), 8.0f));
         InterestRateRecyclerAdapter adapter = new InterestRateRecyclerAdapter(list);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
