@@ -57,6 +57,74 @@ public class DBAdapter {
             + KEY_RATE_DATE          + "integer not null"
             + ");";
 
+    /*
+     * Yearly limit data table
+     */
+    public static final String KEY_LIMIT_ROWID          = "id";
+    public static final String KEY_LIMIT_YEARLY_LIMIT   = "limit";
+    public static final String KEY_LIMIT_YEAR           = "year";
+
+    public static final String[] ALL_KEYS_LIMIT = new String[] {KEY_LIMIT_ROWID,
+            KEY_LIMIT_YEARLY_LIMIT, KEY_LIMIT_YEAR};
+
+    public static final String DATABASE_TABLE_LIMIT = "limit_table";
+
+    private static final String DATABASE_CREATE_SQL_LIMIT = "create table " + DATABASE_TABLE_LIMIT
+            + " ("
+            + KEY_LIMIT_ROWID         + "integer primary key autoincrement,"
+            + KEY_LIMIT_YEARLY_LIMIT  + "float not null,"
+            + KEY_LIMIT_YEAR          + "integer not null"
+            + ");";
+    /*
+     *Year details data table
+     */
+    public static final String KEY_DETAILS_ROWID  ="id";
+    public static final String KEY_DETAILS_DATE   ="date";
+    public static final String KEY_DETAILS_DEPOSIT   ="deposit";
+    public static final String KEY_DETAILS_BALANCE   ="balance";
+    public static final String KEY_DETAILS_INTEREST   ="interest";
+    public static final String KEY_DETAILS_RATE   ="rate";
+
+    public static final String[] ALL_KEYS_DETAILS = new String[] {KEY_LIMIT_ROWID,
+        KEY_DETAILS_DATE,KEY_DETAILS_DEPOSIT,KEY_DETAILS_BALANCE,KEY_DETAILS_INTEREST,
+    KEY_DETAILS_RATE};
+
+    public static final String DATABASE_TABLE_DETAILS = "details_table";
+
+    public static final String DATABASE_CREATE_SQL_DETAILS= "create table" + DATABASE_TABLE_DETAILS
+            +"("
+            +KEY_DETAILS_ROWID   +"integer primary key autoincrement,"
+            +KEY_DETAILS_DATE    +"integer not null,"
+            +KEY_DETAILS_DEPOSIT +"float not null,"
+            +KEY_DETAILS_BALANCE +"float not null,"
+            +KEY_DETAILS_INTEREST+"float not null,"
+            +KEY_DETAILS_RATE    +"float not null"
+            +");";
+
+    /*
+     *Year data table
+     */
+    public static final String KEY_YEAR_ROWID  ="id";
+    public static final String KEY_YEAR_YEAR  ="year";
+    public static final String KEY_YEAR_INVEST  ="invest";
+    public static final String KEY_YEAR_BALANCE   ="balance";
+    public static final String KEY_YEAR_INTEREST   ="interest";
+
+    public static final String[] ALL_KEYS_YEAR = new String[] {KEY_YEAR_ROWID,
+            KEY_YEAR_YEAR,KEY_YEAR_INVEST,KEY_YEAR_BALANCE,KEY_YEAR_INTEREST};
+
+    public static final String DATABASE_TABLE_YEAR = "year_table";
+
+    public static final String DATABASE_CREATE_SQL_YEAR= "create table" + DATABASE_TABLE_YEAR
+            +"("
+            +KEY_YEAR_ROWID   +"integer primary key autoincrement,"
+            +KEY_YEAR_YEAR    +"integer not null,"
+            +KEY_YEAR_INVEST  +"float not null,"
+            +KEY_YEAR_BALANCE +"float not null,"
+            +KEY_YEAR_INTEREST+"float not null"
+            +");";
+
+
     private final Context mContext;
 
     private DatabaseHelper mDbHelper;
@@ -98,6 +166,10 @@ public class DBAdapter {
         public void onCreate(SQLiteDatabase _db) {
             _db.execSQL(DATABASE_CREATE_SQL_ACCOUNT);
             _db.execSQL(DATABASE_CREATE_SQL_RATE);
+            _db.execSQL(DATABASE_CREATE_SQL_LIMIT);
+            _db.execSQL(DATABASE_CREATE_SQL_DETAILS);
+            _db.execSQL(DATABASE_CREATE_SQL_YEAR);
+
         }
 
         @Override
@@ -108,6 +180,9 @@ public class DBAdapter {
             // Destroy old database:
             _db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_ACCOUNT);
             _db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_RATE);
+            _db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_LIMIT);
+            _db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_DETAILS);
+            _db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_YEAR);
 
             // Recreate new database:
             onCreate(_db);

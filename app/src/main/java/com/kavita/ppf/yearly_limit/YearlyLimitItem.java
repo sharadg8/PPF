@@ -7,13 +7,16 @@ import java.text.DecimalFormat;
  */
 
 public class YearlyLimitItem {
+    private long id;
     private int year;
     private float limit;
 
-    public YearlyLimitItem(int year, float limit) {
+    public YearlyLimitItem(long id, int year, float limit) {
+        this.id = id;
         this.year = year;
         this.limit = limit;
     }
+    public long getId() { return id;}
 
     public int getYear() {
         return year;

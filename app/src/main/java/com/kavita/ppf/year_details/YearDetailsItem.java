@@ -9,19 +9,34 @@ import java.util.Calendar;
  */
 
 public class YearDetailsItem {
+    private long id;
     private Calendar date;
     private float deposit, balance, rate, interest;
 
-    public YearDetailsItem(Calendar date, float deposit, float balance, float rate, float interest) {
+    public YearDetailsItem(long id, float deposit, float balance, float rate, float interest,long DateMsec) {
+        this.id = id;;
+        this.deposit = deposit;
+        this.balance = balance;
+        this.rate = rate;
+        this.interest = interest;
+        this.date.setTimeInMillis(DateMsec);
+    }
+    public YearDetailsItem(long id, Calendar date, float deposit, float balance, float rate, float interest) {
+        this.id = id;
         this.date = date;
         this.deposit = deposit;
         this.balance = balance;
         this.rate = rate;
         this.interest = interest;
     }
+    public long getId(){return id; }
 
     public Calendar getDate() {
         return date;
+    }
+
+    public long getDateMsec() {
+        return date.getTimeInMillis();
     }
 
     public String getMonthString() {

@@ -5,17 +5,20 @@ package com.kavita.ppf;
  */
 
 public class YearItem {
+    private long id;
     private int year;
     private float invest;
     private float interest;
     private float balance;
 
-    public YearItem(int year, float invest, float interest, float balance) {
+    public YearItem(long id, int year, float invest, float interest, float balance) {
+        this.id = id;
         this.year = year;
         this.invest = invest;
         this.interest = interest;
         this.balance = balance;
     }
+    public long getId() {return id;}
 
     public int getYear() {
         return year;
